@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <title>Disaster Management App</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="Disaster Management App">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="DisasterApp">
+    <meta name="description" content="Comprehensive disaster management and emergency response app for India">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-192x192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen active">
+        <div class="container">
+            <div class="header">
+                <h1><i class="fas fa-shield-alt"></i> Disaster Management App</h1>
+                <p class="description">Select an option below to explore resources and guidance.</p>
+            </div>
+            
+            <div class="button-grid">
+                <button class="main-btn disaster-btn" onclick="showScreen('disaster-screen')">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Disaster</span>
+                </button>
+                <button class="main-btn emergency-btn" onclick="showScreen('emergency-screen')">
+                    <i class="fas fa-phone"></i>
+                    <span>Emergency Numbers</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Disaster Screen -->
+    <div id="disaster-screen" class="screen">
+        <div class="container">
+            <div class="header">
+                <button class="back-btn" onclick="showScreen('home-screen')">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <h1><i class="fas fa-info-circle"></i> Disaster Information</h1>
+            </div>
+
+            <!-- Location-Based Risk Section -->
+            <div class="section">
+                <h2><i class="fas fa-map-marker-alt"></i> Location-Based Risk</h2>
+                <div class="location-selector">
+                    <select id="location-dropdown" onchange="showLocationRisks()">
+                        <option value="">Select Location</option>
+                        <optgroup label="North India">
+                            <option value="delhi">Delhi</option>
+                            <option value="punjab">Punjab</option>
+                            <option value="haryana">Haryana</option>
+                            <option value="up">Uttar Pradesh</option>
+                            <option value="rajasthan">Rajasthan</option>
+                            <option value="himachal-pradesh">Himachal Pradesh</option>
+                            <option value="jammu-kashmir">Jammu & Kashmir</option>
+                            <option value="ladakh">Ladakh</option>
+                        </optgroup>
+                        <optgroup label="South India">
+                            <option value="tamil-nadu">Tamil Nadu</option>
+                            <option value="kerala">Kerala</option>
+                            <option value="karnataka">Karnataka</option>
+                            <option value="andhra-pradesh">Andhra Pradesh</option>
+                            <option value="telangana">Telangana</option>
+                            <option value="goa">Goa</option>
+                        </optgroup>
+                        <optgroup label="East India">
+                            <option value="west-bengal">West Bengal</option>
+                            <option value="odisha">Odisha</option>
+                            <option value="jharkhand">Jharkhand</option>
+                            <option value="bihar">Bihar</option>
+                            <option value="sikkim">Sikkim</option>
+                        </optgroup>
+                        <optgroup label="West India">
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="mp">Madhya Pradesh</option>
+                            <option value="chhattisgarh">Chhattisgarh</option>
+                        </optgroup>
+                        <optgroup label="Northeast India">
+                            <option value="assam">Assam</option>
+                            <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                            <option value="manipur">Manipur</option>
+                            <option value="meghalaya">Meghalaya</option>
+                            <option value="mizoram">Mizoram</option>
+                            <option value="nagaland">Nagaland</option>
+                            <option value="tripura">Tripura</option>
+                        </optgroup>
+                        <optgroup label="Central India">
+                            <option value="uttarakhand">Uttarakhand</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div id="risk-display" class="risk-display"></div>
+            </div>
+
+            <!-- Disaster Categories Section -->
+            <div class="section">
+                <h2><i class="fas fa-list"></i> Disaster Categories</h2>
+                <div class="category-grid">
+                    <button class="category-btn" onclick="showCategoryContent('pre-disaster')">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span>Pre-Disaster</span>
+                    </button>
+                    <button class="category-btn" onclick="showCategoryContent('post-disaster')">
+                        <i class="fas fa-first-aid"></i>
+                        <span>Post-Disaster</span>
+                    </button>
+                    <button class="category-btn" onclick="showCategoryContent('preparedness')">
+                        <i class="fas fa-tools"></i>
+                        <span>Preparedness</span>
+                    </button>
+                    <button class="category-btn" onclick="showScreen('mental-health-screen')">
+                        <i class="fas fa-heart"></i>
+                        <span>Mental Health</span>
+                    </button>
+                </div>
+                <div id="category-content" class="category-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mental Health Screen -->
+    <div id="mental-health-screen" class="screen">
+        <div class="container">
+            <div class="header">
+                <button class="back-btn" onclick="showScreen('disaster-screen')">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <h1><i class="fas fa-heart"></i> Mental Health & Coping</h1>
+            </div>
+
+            <div class="mental-health-content">
+                <div class="intro">
+                    <p>Disasters can affect the mind as much as the body. Stay strong mentally to recover faster.</p>
+                </div>
+
+                <div class="mental-health-section">
+                    <h2><i class="fas fa-leaf"></i> How to Stay Calm</h2>
+                    <ul class="tips-list">
+                        <li><i class="fas fa-lungs"></i> Take deep breaths, avoid panic</li>
+                        <li><i class="fas fa-users"></i> Talk to family, friends, or support groups</li>
+                        <li><i class="fas fa-bullseye"></i> Focus on what you can control, not on fear</li>
+                    </ul>
+                </div>
+
+                <div class="mental-health-section">
+                    <h2><i class="fas fa-brain"></i> How to Handle Stress After Disaster</h2>
+                    <ul class="tips-list">
+                        <li><i class="fas fa-check-circle"></i> Accept that feeling anxious is normal</li>
+                        <li><i class="fas fa-hands-helping"></i> Help others → it reduces your own stress</li>
+                        <li><i class="fas fa-newspaper"></i> Take breaks from news if it increases panic</li>
+                        <li><i class="fas fa-bed"></i> Sleep and eat properly to recover</li>
+                        <li><i class="fas fa-phone-alt"></i> If feeling overwhelmed → seek helpline support</li>
+                    </ul>
+                </div>
+
+                <div class="helplines-section">
+                    <h2><i class="fas fa-phone"></i> Helplines (India)</h2>
+                    <div class="helpline-cards">
+                        <div class="helpline-card">
+                            <h3>KIRAN Mental Health Helpline</h3>
+                            <p class="helpline-number">1800-599-0019</p>
+                        </div>
+                        <div class="helpline-card">
+                            <h3>Suicide Prevention</h3>
+                            <p class="helpline-number">022-27546669</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Numbers Screen -->
+    <div id="emergency-screen" class="screen">
+        <div class="container">
+            <div class="header">
+                <button class="back-btn" onclick="showScreen('home-screen')">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <h1><i class="fas fa-phone"></i> Emergency Helpline Numbers</h1>
+            </div>
+
+            <div class="emergency-numbers">
+                <div class="emergency-card fire">
+                    <div class="emergency-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="emergency-info">
+                        <h3>Fire</h3>
+                        <p class="emergency-number">101</p>
+                    </div>
+                </div>
+
+                <div class="emergency-card ambulance">
+                    <div class="emergency-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <div class="emergency-info">
+                        <h3>Ambulance</h3>
+                        <p class="emergency-number">108</p>
+                    </div>
+                </div>
+
+                <div class="emergency-card police">
+                    <div class="emergency-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="emergency-info">
+                        <h3>Police</h3>
+                        <p class="emergency-number">100</p>
+                    </div>
+                </div>
+
+                <div class="emergency-card disaster">
+                    <div class="emergency-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="emergency-info">
+                        <h3>Disaster Management</h3>
+                        <p class="emergency-number">1078</p>
+                    </div>
+                </div>
+
+                <div class="emergency-card mental-health">
+                    <div class="emergency-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="emergency-info">
+                        <h3>Mental Health (KIRAN)</h3>
+                        <p class="emergency-number">1800-599-0019</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

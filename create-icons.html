@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Generator for Disaster Management App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .icon-generator {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 10px;
+        }
+        .download-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .download-btn:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="icon-generator">
+        <h1>🛡️ Disaster Management App - Icon Generator</h1>
+        <p>This page generates app icons for your PWA. Click the download buttons to save the icons.</p>
+        
+        <div id="icons-container"></div>
+        
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Create an "icons" folder in your app directory</li>
+            <li>Download all the icons below</li>
+            <li>Save them in the icons folder with the correct names</li>
+            <li>Your PWA will then be ready to install!</li>
+        </ol>
+    </div>
+
+    <script>
+        const sizes = [16, 32, 72, 96, 128, 144, 152, 192, 384, 512];
+        const container = document.getElementById('icons-container');
+
+        sizes.forEach(size => {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // Add shield icon
+            ctx.fillStyle = 'white';
+            ctx.font = `${size * 0.6}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🛡️', size/2, size/2);
+
+            // Add border
+            ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+            ctx.lineWidth = size * 0.02;
+            ctx.strokeRect(0, 0, size, size);
+
+            // Create download button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = `Download ${size}x${size}`;
+            downloadBtn.onclick = () => downloadIcon(canvas, `icon-${size}x${size}.png`);
+
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.style.display = 'inline-block';
+            wrapper.style.textAlign = 'center';
+            wrapper.style.margin = '10px';
+            wrapper.appendChild(canvas);
+            wrapper.appendChild(document.createElement('br'));
+            wrapper.appendChild(downloadBtn);
+
+            container.appendChild(wrapper);
+        });
+
+        function downloadIcon(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+</html>
